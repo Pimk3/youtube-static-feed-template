@@ -1,0 +1,44 @@
+name: Update YouTube Feed
+on:
+  schedule:
+    - cron: '0 0 * * *'  # daily at midnight UTC
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+    - name: Fetch latest videos and build index.html
+      run: |
+        python3 - <<'EOF'
+import feedparser, datetime
+ids = []
+with open('channels.txt') as f:
+    for line in f:
+        line = line.strip().split()[0]
+        if line:
+            ids.append(line)
+video_ids = []
+for cid in ids:
+    d = feedparser.parse(f'https://www.youtube.com/feeds/videos.xml?channel_id={cid}')
+    if d.entries:
+        video_ids.append(d.entries[0].link.split('v=')[1])
+html = """<!DOCTYPE html>
+<html><head><title>YouTube Feed</title></head><body>"""
+for vid in video_ids:
+    html += f'<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/{vid}" allowfullscreen></iframe><br>'
+html += "</body></html>"
+open('index.html','w').write(html)
+EOF
+    - name: Commit and push
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "<>"
+        git add index.html
+        git commit -m "Update videos $(date -u +"%Y-%m-%d")" || echo "No changes"
+        git push
