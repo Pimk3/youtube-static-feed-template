@@ -54,7 +54,7 @@ jobs:
           <html><head><title>YouTube Feed</title></head><body>
           <h1>My YouTube Feed</h1>"""
           for _, vid in videos:
-              html += f'<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/{vid}" allowfullscreen></iframe><br>'
+              html += f'<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/{vid}?rel=0" allowfullscreen></iframe><br>'
           html += "</body></html>"
       
           print(f"Writing {len(videos)} videos to index.html")
