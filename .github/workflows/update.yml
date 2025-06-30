@@ -40,7 +40,6 @@ jobs:
           for vid in video_ids:
               html += f'<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/{vid}" allowfullscreen></iframe><br>'
           html += "</body></html>"
-          html = ""
           open('index.html','w').write(html)
           EOF
 
