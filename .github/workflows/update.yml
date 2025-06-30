@@ -29,21 +29,29 @@ jobs:
                   line = line.strip().split()[0]
                   if line:
                       ids.append(line)
-          for id in ids:
-            echo id
+          print(f"Found channel IDs: {ids}")
+      
           video_ids = []
           for cid in ids:
               d = feedparser.parse(f'https://www.youtube.com/feeds/videos.xml?channel_id={cid}')
               if d.entries:
-                 d.entries[0].yt_videoid
+                  vid = d.entries[0].yt_videoid
+                  print(f"Latest video for {cid}: {vid}")
+                  video_ids.append(vid)
+              else:
+                  print(f"No videos found for {cid}")
+      
           html = """<!DOCTYPE html>
           <html><head><title>YouTube Feed</title></head><body>
           <h1>My YouTube Feed</h1>"""
           for vid in video_ids:
               html += f'<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/{vid}" allowfullscreen></iframe><br>'
           html += "</body></html>"
+      
+          print(f"Writing {len(video_ids)} videos to index.html")
           open('index.html','w').write(html)
           EOF
+
 
       - name: Check if GH_TOKEN is set
         run: |
