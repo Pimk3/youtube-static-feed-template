@@ -44,9 +44,13 @@ jobs:
           EOF
 
       - name: Commit and push
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "pimk3"
+          git config user.email "pimk3@users.noreply.github.com"
+          git remote set-url origin https://pimk3:${GH_TOKEN}@github.com/pimk3/youtube-static-feed-template.git
           git add index.html
           git commit -m "Update videos $(date -u +'%Y-%m-%d')" || echo "No changes"
           git push
+
