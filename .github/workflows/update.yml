@@ -43,6 +43,15 @@ jobs:
           open('index.html','w').write(html)
           EOF
 
+      - name: Check if GH_TOKEN is set
+        run: |
+          if [ -z "${{ secrets.GH_TOKEN }}" ]; then
+            echo "GH_TOKEN is empty!"
+            exit 1
+          else
+            echo "GH_TOKEN is set (but hidden)"
+          fi
+
       - name: Debug git remote URL
         run: |
           echo "Remote URL will be:"
