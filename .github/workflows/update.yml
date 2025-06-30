@@ -33,7 +33,7 @@ jobs:
           for cid in ids:
               d = feedparser.parse(f'https://www.youtube.com/feeds/videos.xml?channel_id={cid}')
               if d.entries:
-                  video_ids.append(d.entries[0].link.split('v=')[1])
+                 d.entries[0].yt_videoid
           html = """<!DOCTYPE html>
           <html><head><title>YouTube Feed</title></head><body>
           <h1>My YouTube Feed</h1>"""
