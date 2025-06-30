@@ -16,6 +16,9 @@ jobs:
         with:
           python-version: '3.x'
 
+      - name: Install feedparser
+        run: pip install feedparser
+
       - name: Fetch latest videos and build index.html
         run: |
           python3 - <<'EOF'
