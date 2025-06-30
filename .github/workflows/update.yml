@@ -44,12 +44,12 @@ jobs:
           EOF
 
       - name: Commit and push
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}  # Inject PAT as environment variable
         run: |
           git config user.name "pimk3"
           git config user.email "pimk3@users.noreply.github.com"
-          # Use the PAT explicitly in the remote URL
-          git remote set-url origin "https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/pimk3/youtube-static-feed-template.git"
+          git remote set-url origin "https://x-access-token:$GH_TOKEN@github.com/pimk3/youtube-static-feed-template.git"
           git add index.html
           git commit -m "Update videos $(date -u +'%Y-%m-%d')" || echo "No changes"
-          git push origin HEAD:main  # Explicitly push to the 'main' branch
-  
+          git push origin HEAD:main
