@@ -43,6 +43,11 @@ jobs:
           open('index.html','w').write(html)
           EOF
 
+      - name: Debug git remote URL
+        run: |
+          echo "Remote URL will be:"
+          echo "https://x-access-token:[MASKED]@github.com/your-username/your-repo.git"
+
       - name: Commit and push
         run: |
           git config user.name "pimk3"
