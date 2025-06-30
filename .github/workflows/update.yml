@@ -68,6 +68,7 @@ jobs:
           git config user.name "pimk3"
           git config user.email "pimk3@users.noreply.github.com"
           git remote set-url origin "https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/pimk3/youtube-static-feed-template.git"
+          git remote -v
       
           echo "==== Before staging ===="
           git status
