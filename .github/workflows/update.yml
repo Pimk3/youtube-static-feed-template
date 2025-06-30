@@ -38,6 +38,7 @@ jobs:
           <html><head><title>YouTube Feed</title></head><body>
           <h1>My YouTube Feed</h1>"""
           for vid in video_ids:
+              echo vid
               html += f'<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/{vid}" allowfullscreen></iframe><br>'
           html += "</body></html>"
           open('index.html','w').write(html)
