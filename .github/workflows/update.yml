@@ -49,7 +49,7 @@ jobs:
       
           # Sort newest first
           videos.sort(key=lambda x: x[0], reverse=True)
-          videos = videos[:10]
+          videos = videos[:20]
           
           html = """<!DOCTYPE html>
           <html><head><title>YouTube Feed</title></head><body>
